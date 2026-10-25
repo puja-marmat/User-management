@@ -1,0 +1,73 @@
+# Local run (plan §8). Connection details come from .env (git-ignored, never committed).
+#
+#   docker compose up --build                      API on http://localhost:8000
+#   docker compose run --rm migrate                alembic upgrade head   (creates iam schema)
+#   docker compose run --rm migrate-sql            print the SQL only (no DB connection)
+#   docker compose --profile localdb up mssql      optional local SQL Server (synthetic data only)
+#
+# If sav_uat runs on this PC, use host "host.docker.internal" in DB_WRITER_URL, not "localhost".
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: Dockerfile
+  image: prime-mdm-backend:local
+  env_file: .env
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+  read_only: true
+  tmpfs:
+    - /tmp
+  volumes:
+    # MasterDb routing CSV (U01 DEC-44) lives on your PC, outside the image and Git
+    - ./data:/app/data
+  security_opt:
+    - no-new-privileges:true
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "3"
+
+services:
+  api:
+    <<: *app
+    container_name: mdm-api-local
+    command: ["api"]
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+
+  migrate:
+    <<: *app
+    container_name: mdm-migrate-local
+    command: ["migrate"]
+    profiles: ["migrate"]
+    restart: "no"
+
+  migrate-sql:
+    <<: *app
+    container_name: mdm-migrate-sql-local
+    command: ["migrate-sql"]
+    profiles: ["migrate"]
+    restart: "no"
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mdm-mssql-local
+    profiles: ["localdb"]
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: ${LOCAL_MSSQL_SA_PASSWORD:?set LOCAL_MSSQL_SA_PASSWORD in .env}
+    ports:
+      - "14333:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+volumes:
+  mssql_data:

@@ -1,0 +1,112 @@
+name: PR CI
+
+on:
+  pull_request:
+    branches: [UAT, main, production]
+  workflow_dispatch:
+
+concurrency:
+  group: pr-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint-test:
+    name: Lint, test, render SQL
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.32"
+
+      - name: Install dependencies
+        run: uv sync --frozen --dev
+
+      - name: pre-commit (all files)
+        env:
+          SKIP: alembic-check   # needs SQL Server; covered by the db-migrations job
+        run: uv run pre-commit run --all-files --show-diff-on-failure
+
+      - name: Dependency audit (advisory)
+        run: uv run pip-audit || true
+
+      - name: Tests (unit)
+        run: uv run pytest -m "not integration"
+
+      - name: Render migration SQL (no DB connection)
+        run: uv run alembic upgrade head --sql > release.sql && wc -l release.sql
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-sql
+          path: release.sql
+
+  db-migrations:
+    name: Migrations against SQL Server (ephemeral)
+    runs-on: ubuntu-latest
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_PID: Developer
+          MSSQL_SA_PASSWORD: Ci-${{ github.run_id }}-Aa1!
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$MSSQL_SA_PASSWORD\" -Q 'SELECT 1' || exit 1"
+          --health-interval 10s --health-timeout 5s --health-retries 12
+    env:
+      SA_PASSWORD: Ci-${{ github.run_id }}-Aa1!
+      # Throw-away CI database only: the Phase 1 guard is lifted for this job.
+      IAM_MIGRATIONS_ENABLED: "true"
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.32"
+
+      - name: ODBC Driver 18
+        run: |
+          if ! odbcinst -q -d | grep -q "ODBC Driver 18 for SQL Server"; then
+            curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
+            curl -fsSL "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list" | sudo tee /etc/apt/sources.list.d/mssql-release.list
+            sudo apt-get update && sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc
+          fi
+
+      - name: Install dependencies
+        run: uv sync --frozen --dev
+
+      - name: Create test database
+        run: |
+          /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$SA_PASSWORD" -Q "CREATE DATABASE sav_ci" \
+            || docker exec "${{ job.services.mssql.id }}" /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$SA_PASSWORD" -Q "CREATE DATABASE sav_ci"
+
+      - name: upgrade → check → downgrade → upgrade
+        run: |
+          ENC_PW=$(python3 -c "import os,urllib.parse;print(urllib.parse.quote_plus(os.environ['SA_PASSWORD']))")
+          export DB_WRITER_URL="mssql+aioodbc://sa:${ENC_PW}@localhost:1433/sav_ci?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes&TrustServerCertificate=yes"
+          uv run alembic upgrade head
+          uv run alembic check
+          uv run alembic downgrade base
+          uv run alembic upgrade head
+          # Integration tests are not run here: this empty CI database has no legacy schema,
+          # and they are only allowed against sav_uat on the approved server (local runs).
+
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Build image
+        run: docker build --build-arg APP_VERSION=ci-${GITHUB_SHA::7} -t prime-mdm-backend:ci .
+      - name: Smoke (liveness, no DB)
+        run: |
+          docker run -d --name mdm -p 8000:8000 -e ENVIRONMENT=test prime-mdm-backend:ci
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8000/health && exit 0; sleep 1; done
+          docker logs mdm; exit 1

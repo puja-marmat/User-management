@@ -1,0 +1,2199 @@
+{
+  "source": "KnowledgeBase/Database/sav_uat_script.sql (script date 2026-10-15)",
+  "tables": {
+    "ApplicationUsers": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "FullName",
+        "type": "nvarchar",
+        "length": "100",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "StatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ConsumerNo",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "LastReadNewsId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "LastReadAdminAlertId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "LastReadUserAlertId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "ShareBillsWith",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Email",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "EmailConfirmed",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "PasswordHash",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "SecurityStamp",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "PhoneNumber",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "PhoneNumberConfirmed",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "TwoFactorEnabled",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "LockoutEndDateUtc",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "LockoutEnabled",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "AccessFailedCount",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UserName",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      }
+    ],
+    "ApplicationRoles": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      }
+    ],
+    "ApplicationRoleGroups": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar",
+        "length": "50",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "SiteId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsSiteAdmin",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsSuperAdmin",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsEditable",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsEndUser",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsSystemAdmin",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsSubDivision",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "ApplicationRolesInGroups": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "ApplicationRoleGroupId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ApplicationRoleId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "ApplicationUsersInGroups": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "ApplicationRoleGroupId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ApplicationUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "UserSites": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "ApplicationUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "SiteId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "Towers": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "SiteId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar",
+        "length": "100",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "IMEI",
+        "type": "nvarchar",
+        "length": "20",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "StatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "TowerNumber",
+        "type": "smallint",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "LastDataReceivedOn",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "WireBreak",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "WireBreakFlagResetOn",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "PrimaryPhone",
+        "type": "nvarchar",
+        "length": "50",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "PrimaryPhoneOperator",
+        "type": "nvarchar",
+        "length": "50",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "SecondaryPhone",
+        "type": "nvarchar",
+        "length": "50",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "SecondaryPhoneOperator",
+        "type": "nvarchar",
+        "length": "50",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "GatewayNo",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "ApplicationUserChangeLogs": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "Description",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UserName",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "ApplicationUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "LogUserLogins": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "SiteId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UserName",
+        "type": "nvarchar",
+        "length": "100",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "FullName",
+        "type": "nvarchar",
+        "length": "100",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "WebRequestIdentification",
+        "type": "nvarchar",
+        "length": "500",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "IP",
+        "type": "nvarchar",
+        "length": "50",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "Email",
+        "type": "nvarchar",
+        "length": "100",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      }
+    ],
+    "AlertQueues": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "FromAddress",
+        "type": "nvarchar",
+        "length": "500",
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ToAddress",
+        "type": "nvarchar",
+        "length": "500",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CCAddress",
+        "type": "nvarchar",
+        "length": "500",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "BCCAddress",
+        "type": "nvarchar",
+        "length": "500",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Subject",
+        "type": "nvarchar",
+        "length": "500",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Message",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ErrorMessage",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "DeliveryMethodId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "PatternId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsSent",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "SentOn",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "DeliveryStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "MeterStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "AlertId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "SiteId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "EmailTypeId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "MeterNo",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "BroadcastMessages": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "SiteId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "Message",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "DeliveryMethodId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsProcessed",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ProcessedOn",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "ExceptEndUsersSendToAll",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "GrantApiAccesses": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "SiteId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ApiMethods",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "WhiteListedIPAddresses",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "HistoricalGrantApiAccesses": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "SiteId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ApiMethods",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "WhiteListedIPAddresses",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "Sites": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar",
+        "length": "60",
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "Address",
+        "type": "nvarchar",
+        "length": "500",
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "HeadOffice",
+        "type": "nvarchar",
+        "length": "500",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Phone",
+        "type": "nvarchar",
+        "length": "30",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "WireBreakMobileNo",
+        "type": "nvarchar",
+        "length": "30",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "ServiceTaxNo",
+        "type": "nvarchar",
+        "length": "60",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "FaultyMeterInterval",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "PrincipalUnit",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "PrincipalDGUnit",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "DashboardColumn",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "LogoName",
+        "type": "nvarchar",
+        "length": "100",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "BillGenerationStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ChargeDeductionStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "AlertSMSStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "AlertEmailStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "SiteStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "AllowDisconnectStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UnitType",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ApproveMeterBillInHours",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "GenerateRechargeCompanyCopy",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "BillPrefix",
+        "type": "nvarchar",
+        "length": "20",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "BillingMaxDecimal",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "SMSLimit",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "SMSSent",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "InterestMonthlyRate",
+        "type": "decimal",
+        "length": "18",
+        "scale": "2",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ApplyInterestRateStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "GSTAmount",
+        "type": "decimal",
+        "length": "18",
+        "scale": "2",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "TempCreditThreshold",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "TempCreditMonthlyChangeLimit",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "AutoSendMeterBillsUponAutoApproval",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "AssignTopPriorityToFaultyInterval",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "Meters": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "SiteId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "MeterTypeId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "TowerId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "MeterNo",
+        "type": "nvarchar",
+        "length": "9",
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "MasterMeterGrid",
+        "type": "nvarchar",
+        "length": "9",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "MasterMeterDG",
+        "type": "nvarchar",
+        "length": "9",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Remarks",
+        "type": "nvarchar",
+        "length": "50",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CTFFactor",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "LoadSenctionMain",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "LoadSenctionDG",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "WaterCharges",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "FreeUnitsMain",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "FreeUnitsDG",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "SMSWarningAmount",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "SMSWarning1Amount",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "CreditLimit",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "DGPhase",
+        "type": "tinyint",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "BillGenerationStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "ChargeDeductionStatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "StatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "PossessionDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "FieldConnectedDisconnected",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsDisconnectedByAdmin",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UnitName",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UnitAddress",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UnitArea",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "BillingAddress",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "TenantUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "FirmwareVersion",
+        "type": "nvarchar",
+        "length": "20",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "StatusRemark",
+        "type": "nvarchar",
+        "length": "100",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "BillingDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "VisibleOnDashboard",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "TempCreditTillDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Charge1",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Charge2",
+        "type": "decimal",
+        "length": "18",
+        "scale": "3",
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "IsVacant",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsMeterResetForBillingPeriod",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "LastMeterResetOn",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "ThresholdValue",
+        "type": "decimal",
+        "length": "18",
+        "scale": "2",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsInstalled",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "GSTIN",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "MeterRatio",
+        "type": "decimal",
+        "length": "18",
+        "scale": "2",
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "MeterSerialNo",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "IsDlmsMeter",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "IsMasterReset",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "MasterResetOn",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "DefaultAddress",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "MeterLoadTypeId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "MeterStatus",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "SolarMeterNo",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CustomBillSetupId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "MeterPrefix",
+        "type": "nvarchar",
+        "length": "20",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      }
+    ],
+    "Alerts": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar",
+        "length": "50",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "SourceId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "PatternId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "StatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "DeliveryMethodId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "Message",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Subject",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "EditableAtSiteLevel",
+        "type": "bit",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ],
+    "SiteAlerts": [
+      {
+        "name": "Id",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": true
+      },
+      {
+        "name": "SiteId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "AlertId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "StatusId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "Message",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Subject",
+        "type": "nvarchar",
+        "length": "max",
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "CreatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      },
+      {
+        "name": "UpdatedByUserId",
+        "type": "int",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "UpdatedDate",
+        "type": "datetime",
+        "length": null,
+        "scale": null,
+        "nullable": true,
+        "identity": false
+      },
+      {
+        "name": "Guid",
+        "type": "uniqueidentifier",
+        "length": null,
+        "scale": null,
+        "nullable": false,
+        "identity": false
+      }
+    ]
+  }
+}

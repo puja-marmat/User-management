@@ -1,0 +1,107 @@
+# Build → push to ECR → run `migrate` as a one-off ECS task → roll the API service.
+# Same OIDC → ECR → ECS pattern as ems-mdp-backend (DEC-27, DEC-33).
+# Branch UAT deploys to GitHub environment "UAT"; branch production to "PROD".
+#
+# Required per GitHub environment:
+#   secrets: OIDC_ROLE_ARN, ECR_REPOSITORY
+#   vars:    AWS_REGION, ECS_CLUSTER, ECS_SERVICE, TASK_FAMILY, CONTAINER_NAME,
+#            SUBNET_IDS (comma-separated), SECURITY_GROUP_IDS (comma-separated)
+# The task definition carries DB_WRITER_URL etc. from Secrets Manager, never from this file.
+#
+# Phase 1 guard (00a §0.1): the migrate step runs ONLY when the environment variable
+# IAM_MIGRATIONS_ENABLED is 'true' (unset in Phase 1, so it is skipped). Even then the
+# container's own guard (entrypoint + alembic/env.py) must also see IAM_MIGRATIONS_ENABLED=true.
+
+name: Deploy (ECS Fargate)
+
+on:
+  push:
+    branches: [UAT, production]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'production' && 'PROD' || 'UAT' }}
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+      ECS_CLUSTER: ${{ vars.ECS_CLUSTER }}
+      ECS_SERVICE: ${{ vars.ECS_SERVICE }}
+      TASK_FAMILY: ${{ vars.TASK_FAMILY }}
+      CONTAINER_NAME: ${{ vars.CONTAINER_NAME }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Version
+        id: tag
+        run: echo "version=${GITHUB_REF_NAME,,}-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.OIDC_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push
+        id: image
+        env:
+          VERSION: ${{ steps.tag.outputs.version }}
+        run: |
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          URI="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}"
+          docker build --platform linux/amd64 --build-arg APP_VERSION="$VERSION" -t "$URI:$VERSION" .
+          docker push "$URI:$VERSION"
+          echo "image=$URI:$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Register task definition revision
+        id: taskdef
+        env:
+          IMAGE: ${{ steps.image.outputs.image }}
+        run: |
+          aws ecs describe-task-definition --task-definition "$TASK_FAMILY" --query taskDefinition > current.json
+          jq --arg IMAGE "$IMAGE" --arg NAME "$CONTAINER_NAME" '
+            (.containerDefinitions[] | select(.name == $NAME) | .image) = $IMAGE
+            | del(.taskDefinitionArn, .revision, .status, .requiresAttributes,
+                  .registeredAt, .registeredBy, .compatibilities, .deregisteredAt)
+          ' current.json > new.json
+          ARN=$(aws ecs register-task-definition --cli-input-json file://new.json \
+                  --query taskDefinition.taskDefinitionArn --output text)
+          echo "arn=$ARN" >> "$GITHUB_OUTPUT"
+
+      - name: Run migrations (one-off task, must succeed before rollout)
+        if: ${{ vars.IAM_MIGRATIONS_ENABLED == 'true' }}
+        env:
+          TASK_DEF: ${{ steps.taskdef.outputs.arn }}
+          SUBNETS: ${{ vars.SUBNET_IDS }}
+          SGS: ${{ vars.SECURITY_GROUP_IDS }}
+        run: |
+          TASK=$(aws ecs run-task --cluster "$ECS_CLUSTER" --launch-type FARGATE \
+            --task-definition "$TASK_DEF" \
+            --network-configuration "awsvpcConfiguration={subnets=[$SUBNETS],securityGroups=[$SGS],assignPublicIp=DISABLED}" \
+            --overrides "{\"containerOverrides\":[{\"name\":\"$CONTAINER_NAME\",\"command\":[\"migrate\"],\"environment\":[{\"name\":\"IAM_MIGRATIONS_ENABLED\",\"value\":\"true\"}]}]}" \
+            --query 'tasks[0].taskArn' --output text)
+          aws ecs wait tasks-stopped --cluster "$ECS_CLUSTER" --tasks "$TASK"
+          CODE=$(aws ecs describe-tasks --cluster "$ECS_CLUSTER" --tasks "$TASK" \
+            --query "tasks[0].containers[?name=='$CONTAINER_NAME'].exitCode | [0]" --output text)
+          echo "migrate exit code: $CODE"
+          test "$CODE" = "0"
+
+      - name: Phase 1 notice
+        if: ${{ vars.IAM_MIGRATIONS_ENABLED != 'true' }}
+        run: echo "Phase 1 - migrations skipped (IAM_MIGRATIONS_ENABLED is not 'true')."
+
+      - name: Roll API service
+        env:
+          TASK_DEF: ${{ steps.taskdef.outputs.arn }}
+        run: |
+          aws ecs update-service --cluster "$ECS_CLUSTER" --service "$ECS_SERVICE" --task-definition "$TASK_DEF"
+          aws ecs wait services-stable --cluster "$ECS_CLUSTER" --services "$ECS_SERVICE"

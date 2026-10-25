@@ -1,0 +1,56 @@
+# ── Secrets (never commit) ──────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+*.crt
+*.jks
+secrets/
+credentials*.json
+*.secret
+*.secrets
+
+# ── Python / uv ─────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+build/
+dist/
+wheels/
+*.egg-info
+.venv/
+venv/
+# uv.lock IS committed (reproducible installs) — do not add *.lock here
+
+# ── Test, coverage and tool output ─────────────────────────────────────
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+pytest-of-*/
+.ruff_cache/
+.mypy_cache/
+coverage.xml
+pytest.xml
+reports/
+
+# ── Generated SQL, logs and local run output ───────────────────────────
+release*.sql
+alembic-offline-*.txt
+*.log
+logs/
+
+# Phase 1 local data (MasterDb routing CSV, U01 DEC-44) and parity outputs
+data/
+parity-out/
+*.csv.lock
+
+# ── IDE / OS ────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
