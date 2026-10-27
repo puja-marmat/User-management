@@ -1,0 +1,7 @@
+/Users/harshmarkandey/VsCodeProjects/MDM/prime-mdm-backend/CLAUDE.md
+/Users/harshmarkandey/VsCodeProjects/MDM/prime-mdm-backend/README.md
+/Users/harshmarkandey/VsCodeProjects/MDM/prime-mdm-backend/docs/LEARNING-GUIDE.md
+/Users/harshmarkandey/VsCodeProjects/MDM/prime-mdm-backend/docs/PARITY.md
+/Users/harshmarkandey/VsCodeProjects/MDM/prime-mdm-backend/docs/UAT-P1-M2.md
+/Users/harshmarkandey/VsCodeProjects/MDM/prime-mdm-backend/scripts/dba/README.md
+/Users/harshmarkandey/VsCodeProjects/MDM/prime-mdm-backend/setup/README.md
