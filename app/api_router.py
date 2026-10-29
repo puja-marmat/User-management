@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from app.routers import auth, health
+from app.routers import auth, health,role_groups
 
 
 router = APIRouter()
@@ -10,3 +10,4 @@ router = APIRouter()
 router.include_router(health.router)
 router.include_router(auth.router)  # P1-M2: A1-A10
 # P1-M3+: site context, users, role groups, API access (01d §2)
+router.include_router(role_groups.router)
